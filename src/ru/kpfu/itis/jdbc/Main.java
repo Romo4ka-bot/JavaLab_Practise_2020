@@ -2,6 +2,12 @@ package ru.kpfu.itis.jdbc;
 
 import java.sql.*;
 
+/**
+ * @author Leontev Roman
+ * 11-905
+ * 10.07.20
+ */
+
 public class Main {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
