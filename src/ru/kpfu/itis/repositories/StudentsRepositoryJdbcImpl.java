@@ -39,7 +39,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                     "s.last_name as s_last_name, " +
                     "s.age as s_age, " +
                     "s.group_number as s_group_number " +
-                    "from student s left join mentor m on s.id = m.id";
+                    "from student s left join mentor m on s.id = student_id";
     //language=SQL
     private static final String SQL_DELET = "delete from mentor where student_id = ";
 
@@ -57,6 +57,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
 
         try {
             statement1 = connection.createStatement();
+            //находим студентов
             resultStudent = statement1.executeQuery(SQL_SELECT_BY_AGE + age);
 
             List<Student> listStudent = new ArrayList<>();
@@ -73,6 +74,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
 
                 try (Statement statement2 = connection.createStatement()) {
 
+                    //находим менторов у студента с id == student.getId()
                     ResultSet resultMentor = statement2.executeQuery(SQL_SELECT_BY_STUD_ID_MENTOR + student.getId());
                     List<Mentor> listMentor = new ArrayList<>();
 
@@ -86,6 +88,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                         ));
                     }
 
+                    //добавляем заполненный список менторов
                     student.setMentors(listMentor);
 
                     listStudent.add(student);
@@ -138,21 +141,27 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                 id = result.getLong("s_id");
             }
 
+            //добавляем первого студента
             addStudent(list, id, result);
 
             while (result.next()) {
-                for (Student student : list) {
-                    if (student.getId() == id) {
-                        student.getMentors().add(new Mentor(
-                                result.getLong("s_id"),
+                for (int i = 0; i < list.size(); i++) {
+                    Student current = list.get(i);
+                    //если есть студент с таким же id, то добавляем нового ментора в список
+                    if (current.getId() == id) {
+                        current.getMentors().add(new Mentor(
+                                result.getLong("m_id"),
                                 result.getString("m_first_name"),
                                 result.getString("m_last_name"),
                                 null,
                                 null
                         ));
+                    } else {
+                        //добавляем студентов
+                        addStudent(list, id, result);
+                        break;
                     }
                 }
-                addStudent(list, id, result);
                 id = result.getLong("s_id");
             }
 
@@ -185,6 +194,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
 
         try {
             statement = connection.createStatement();
+            //находим студентов
             result = statement.executeQuery(SQL_SELECT_BY_ID_STUDENT + id);
             Student student;
             if (result.next()) {
@@ -197,6 +207,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                 );
             } else return null;
 
+            //находим менторов наших студентов
             result = statement.executeQuery(SQL_SELECT_BY_STUD_ID_MENTOR + id);
             List<Mentor> listMentor = new ArrayList<>();
 
@@ -253,6 +264,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                     entity.getGroupNumber()
             );
 
+            //сохраняем id, чтобы изменить у нашей сущности entity
             ResultSet id = statement.executeQuery(insertStudent + " returning id");
 
             if (id.next()) {
@@ -310,8 +322,10 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
             );
             statement.executeUpdate(updateStudent);
 
+            //удаляем менторов у студента с id == entity.id
             statement.executeUpdate(SQL_DELET + entity.getId());
 
+            //добавляем менторов у нового студента
             for (int i = 0; i < entity.getMentors().size(); i++) {
                 Mentor mentor = entity.getMentors().get(i);
                 String insertMentor = String.format(SQL_INSERT_MENTOR,
@@ -340,6 +354,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
         }
     }
 
+    //вспомогательный метод для добавления студента
     private void addStudent(List<Student> listStudent, long id, ResultSet result) {
 
         try {

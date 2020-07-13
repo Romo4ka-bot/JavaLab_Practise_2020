@@ -64,12 +64,20 @@ public class Mentor {
 
     @Override
     public String toString() {
-        return "Mentor{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", student=" + student.getId() +
-                ", subject=" + subject +
-                '}';
+        if (student != null)
+            return "Mentor{" +
+                    "id=" + id +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", student=" + student.getId() +
+                    ", subject=" + subject +
+                    '}';
+        else
+            return "Mentor{" +
+                    "id=" + id +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\''+
+                    ", subject=" + subject +
+                    '}';
     }
 }
