@@ -72,6 +72,7 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                         resultStudent.getInt("group_number"));
 
 
+                //для того, чтобы найти менторов нашего студента нужен еще один объект класса Statement
                 try (Statement statement2 = connection.createStatement()) {
 
                     //находим менторов у студента с id == student.getId()
