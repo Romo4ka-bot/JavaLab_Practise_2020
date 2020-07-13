@@ -12,9 +12,9 @@ public class Mentor {
     private String firstName;
     private String lastName;
     private Student student;
-    private int subject;
+    private Integer subject;
 
-    public Mentor(Long id, String firstName, String lastName, Student student, int subject) {
+    public Mentor(Long id, String firstName, String lastName, Student student, Integer subject) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

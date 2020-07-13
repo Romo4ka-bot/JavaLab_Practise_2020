@@ -147,8 +147,8 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                                 result.getLong("s_id"),
                                 result.getString("m_first_name"),
                                 result.getString("m_last_name"),
-                                student,
-                                result.getInt("m_subject_id")
+                                null,
+                                null
                         ));
                     }
                 }
@@ -357,8 +357,8 @@ public class StudentsRepositoryJdbcImpl implements StudentsRepository {
                     result.getLong("m_id"),
                     result.getString("m_first_name"),
                     result.getString("m_last_name"),
-                    student,
-                    result.getInt("m_subject_id")
+                    null,
+                    null
             ));
 
             listStudent.add(student);
