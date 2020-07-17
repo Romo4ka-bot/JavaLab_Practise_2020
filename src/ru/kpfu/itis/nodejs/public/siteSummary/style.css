@@ -11,18 +11,8 @@ body {
     color: #7c7d7d;
 }
 
-.social-links {
-    font-size: 35px;
-    position: absolute;
-    right: 215px;
-    margin-top: 315px;
-}
-
 .feedback {
     font-size: 23px;
-    position: absolute;
-    right: 30px;
-    bottom: 191px;
     color: #cfd3d3;
 }
 
@@ -62,13 +52,33 @@ body {
     line-height: 1.5em;
 }
 
+.active {
+    position: absolute;
+}
+
+/*@media(max-height:2000px) {*/
+/*    body{*/
+/*        background-color: #e0a80d;*/
+/*    }*/
+/*}*/
+
+.social-links {
+    font-size: 35px;
+    position: absolute;
+    right: 35px;
+}
+
+.social-links_description {
+    margin-top: 34%;
+}
+
 .description2 {
     text-align: left;
     color: #979899;
     font-size: 14px;
     box-sizing: inherit;
     line-height: 1.75;
-    padding-top: 350px;
+    padding-top: 30px;
 }
 
 .border {
@@ -185,14 +195,14 @@ body {
 
 .popup_title {
     line-height: 50px;
-    font-family: "Tahoma", sans-serif;
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-bottom: 1em;
     font-size: 30px;
 }
 
 .popup_text {
     line-height: 50px;
-    font-family: "Tahoma", sans-serif;
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-bottom: 1em;
     color: #979899;
     font-size: 20px;
