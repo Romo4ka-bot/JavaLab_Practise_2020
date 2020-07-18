@@ -16,7 +16,7 @@
     function getUsers() {
         $.getJSON("/users", function (response) {
             let html = "<table>";
-            let json_parse = ["name", "surname", "address", "phoneNumber", "best-skill", "information"];
+            let json_parse = ["name", "surname", "address", "phoneNumber", "best-skill", "e-mail", "telegram", "information"];
             for (let i = 0; i < json_parse.length; i++) {
                 html += "<tr>";
                 html += "<td>" + json_parse[i] + " - " + response[0][json_parse[i]] + "</td>";
@@ -27,8 +27,7 @@
         });
     }
 </script>
-<body>
-<button onclick="getUsers()">Получить данные</button>
+<body onload="getUsers()">
 <div id="users_table">
 </div>
 </body>
