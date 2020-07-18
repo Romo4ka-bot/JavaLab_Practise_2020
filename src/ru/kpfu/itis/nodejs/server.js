@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 require('./app/routes')(app);
 // говорим, что мы раздаем папку public
-app.use(express.static('public/siteSummary'));
+app.use(express.static('public'));
 // говорим, что запускаемся на порту 80
 app.listen(80);
 console.log("Server started at 80");
