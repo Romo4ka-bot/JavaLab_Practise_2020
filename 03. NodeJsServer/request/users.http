@@ -1,0 +1,12 @@
+GET http://localhost/users
+
+###
+
+POST http://localhost/users
+Content-Type: application/json
+
+{
+  "name" : "MegaMarsel"
+}
+
+###

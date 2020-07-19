@@ -1,0 +1,7 @@
+{
+  "name": "Summer_Practise_Java_Lab",
+  "version": "1.0.0",
+  "dependencies": {
+    "pg": "latest"
+  }
+}

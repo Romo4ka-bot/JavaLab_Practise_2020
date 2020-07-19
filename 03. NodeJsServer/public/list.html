@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
+            integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
+            crossorigin="anonymous"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <title>Document</title>
+    <script>
+        function getRequests() {
+            $.getJSON('/requests', function (response) {
+                let json_parser = ["name", "email", "message"];
+                let html = "<table border='2' class='tab_request'>" +
+                    "<tr>" +
+                    "<td>" +
+                    json_parser[0] +
+                    "</td>" +
+                    "<td>" +
+                    json_parser[1] +
+                    "</td>" +
+                    "<td>" +
+                    json_parser[2] +
+                    "</td>";
+                for (let i = 0; i < response.length; i++) {
+                    html += "<tr>";
+                    for (let j = 0; j < json_parser.length; j++) {
+                        html += "<td>" + response[i][json_parser[j]] + "</td>";
+                    }
+                    html += "</tr>";
+                }
+                html += "</table>";
+                $("#messages_table").append(html);
+            });
+        }
+    </script>
+</head>
+<body onload="getRequests()">
+<div id="messages_table">
+</div>
+<br><a href="/summary.html"><button>Назад</button></a>
+</body>
+</html>
